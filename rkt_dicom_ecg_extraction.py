@@ -17,11 +17,11 @@ if len(sys.argv) == 3:
     InputFolderPath = sys.argv[1]  # "./../Annotated images/Normal/"
     OutputFolderPath = sys.argv[2]  # "./../Annotated images/Normal/out/"
     
-    for img in glob.glob(InputFolderPath+"/*.dcm"):
+    for imgpath in glob.glob(InputFolderPath+"/*.dcm"):
         ######################## 1. LOAD IMAGE ###################################
-        inputpath = InputFolderPath + "/" + os.path.basename(img)
+        inputpath = InputFolderPath + "/" + os.path.basename(imgpath)
         print("Input: ", inputpath)
-        outputpath = OutputFolderPath + "/" + os.path.basename(img)
+        outputpath = OutputFolderPath + "/" + os.path.basename(imgpath)
         print("output:", outputpath)
 
         plan = dicom.read_file(inputpath)
