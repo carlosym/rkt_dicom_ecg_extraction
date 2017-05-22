@@ -28,7 +28,8 @@ RUN apt-get -qq update && apt-get -qq install -y       \
                             python3-scipy                            \
                             python3-matplotlib                \
                             python3-pillow                    \
-                            git                                     
+                            git     \
+                            wget                                 
 #                            && rm -rf /var/lib/apt/lists/*
 
 # 731MB
@@ -38,15 +39,20 @@ RUN apt-get -qq update && apt-get -qq install -y       \
 RUN pip3 install --no-cache-dir pydicom
 
 # WORKDIR /work
-COPY exp1.py /home
-COPY functions.py /home
+#COPY exp1.py /home
+#COPY functions.py /home
 
-WORKDIR "/home"
+RUN wget https://raw.githubusercontent.com/carlosym/rkt_dicom_ecg_extraction/master/rkt_dicom_ecg_extraction.py
+RUN mv rkt_dicom_ecg_extraction.py /home/rkt_dicom_ecg_extraction.py
+RUN wget https://raw.githubusercontent.com/carlosym/rkt_dicom_ecg_extraction/master/functions.py
+RUN mv functions.py /home/functions.py
 
 RUN groupadd -r host && useradd -r -g host host && usermod -u 1000 host
 USER host
 
-ENTRYPOINT ["python3", "/home/exp1.py"]
+WORKDIR "/home"
+
+ENTRYPOINT ["python3", "/home/rkt_dicom_ecg_extraction.py"]
 
 
 
