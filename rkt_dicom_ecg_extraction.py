@@ -6,7 +6,7 @@ import dicom
 import PIL.Image
 import numpy as np
 from scipy.interpolate import interp1d
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 import csv
 import json
 
